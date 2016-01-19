@@ -7,6 +7,7 @@ import java.net.URL;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.boot.test.TestRestTemplate;
@@ -20,6 +21,8 @@ import org.springframework.web.client.RestTemplate;
 @WebAppConfiguration
 @IntegrationTest({"server.port=0"})
 public class AuthControllerIT {
+
+    @Value("${local.server.port}")
     private int port;
 
     private URL base;
@@ -35,5 +38,11 @@ public class AuthControllerIT {
     public void getLogin() throws Exception {
         ResponseEntity<String> response = template.getForEntity(base.toString() + "/login", String.class);
         assertThat(response.getBody(), equalTo("You're logged in!"));
+    }
+
+    @Test
+    public void getLogout() throws Exception {
+        ResponseEntity<String> response = template.getForEntity(base.toString() + "/logout", String.class);
+        assertThat(response.getBody(), equalTo("You're logged out!"));
     }
 }

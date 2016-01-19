@@ -23,13 +23,13 @@ public class AuthControllerTests {
     public void getLogin() throws Exception {
         mvc.perform(MockMvcRequestBuilders.get("/login").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(content().string(equalTo("You've logged in!")));
+                .andExpect(content().string(equalTo("You're logged in!")));
     }
 
     @Test
     public void getLogout() throws Exception {
         mvc.perform(MockMvcRequestBuilders.get("/logout").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(content().string(equalTo("You've logged out!")));
+                .andExpect(content().string(equalTo("You're logged out!")));
     }
 }

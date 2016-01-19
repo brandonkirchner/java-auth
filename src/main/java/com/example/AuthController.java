@@ -8,11 +8,11 @@ public class AuthController {
 
     @RequestMapping("/login")
     public String login() {
-        return "You've logged in!";
+        return "You're logged in!";
     }
 
     @RequestMapping("/logout")
     public String logout() {
-        return "You've logged out!";
+        return "You're logged out!";
     }
 }
