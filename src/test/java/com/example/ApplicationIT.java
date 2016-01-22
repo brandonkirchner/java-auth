@@ -14,6 +14,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.net.URL;
 
+import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
 
@@ -21,7 +22,7 @@ import static org.junit.Assert.assertThat;
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
 @IntegrationTest({"server.port=0"})
-public class AuthControllerIT {
+public class ApplicationIT {
 
     @Value("${local.server.port}")
     private int port;
@@ -51,5 +52,11 @@ public class AuthControllerIT {
     public void getLogout() throws Exception {
         ResponseEntity<String> response = template.getForEntity(base.toString() + "/logout", String.class);
         assertThat(response.getBody(), equalTo("You're logged out!"));
+    }
+
+    @Test
+    public void getUsers() throws Exception {
+        ResponseEntity<String> response = template.getForEntity(base.toString() + "/user", String.class);
+        assertThat(response.getBody(), containsString("user"));
     }
 }
