@@ -14,6 +14,7 @@ public class User {
 
     private String username;
     private String password;
+    private String token;
 
     public User() {
         // do nothing
@@ -21,7 +22,7 @@ public class User {
 
     public String getUsername() { return username; }
 
-    public String getPassword() { return password; }
+    public String getEncryptedPassword() { return password; }
 
     public void setUsername(String username) { this.username = username; }
 

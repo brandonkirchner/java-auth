@@ -34,11 +34,11 @@ public class AuthController {
 
         User realUser = userList.get(0);
 
-        if (checkPassword(user.getPassword(), realUser.getPassword())) {
+        if (checkPassword(user.getPassword(), realUser.getEncryptedPassword())) {
             return "You're logged in!";
         }
 
-        return "Invalid! " + user.getPassword() + " isnt equal to " + realUser.getPassword() + ".";
+        return "Invalid! " + user.getPassword() + " isnt equal to " + realUser.getEncryptedPassword() + ".";
     }
 
     @RequestMapping("/logout")
