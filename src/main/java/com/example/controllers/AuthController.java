@@ -6,10 +6,7 @@ import com.example.repositories.UserRepository;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -35,14 +32,28 @@ public class AuthController {
         User realUser = userList.get(0);
 
         if (checkPassword(user.getPassword(), realUser.getEncryptedPassword())) {
-            return "You're logged in!";
+            realUser.setToken();
+            userRepository.save(realUser);
+
+            return realUser.getToken();
         }
 
         return "Invalid! " + user.getPassword() + " isnt equal to " + realUser.getEncryptedPassword() + ".";
     }
 
     @RequestMapping("/logout")
-    public String logout() {
+    public String logout(@RequestHeader(value="token") String token) {
+        List<User> userList = userRepository.findByToken(token);
+
+        if (userList.size() != 1)  {
+            return "that token doesnt exist!";
+        }
+
+        User realUser = userList.get(0);
+
+        realUser.invalidateToken();
+        userRepository.save(realUser);
+
         return "You're logged out!";
     }
 

@@ -9,4 +9,6 @@ import java.util.List;
 @RepositoryRestResource(collectionResourceRel = "user", path="user")
 public interface UserRepository extends CrudRepository<User, Long> {
     List<User> findByUsername(String username);
+
+    List<User> findByToken(String token);
 }
