@@ -1,6 +1,6 @@
 package com.example.controllers;
 
-import com.example.errors.InvalidUserException;
+import com.example.errors.InvalidCredentialsException;
 import com.example.models.User;
 import com.example.models.UserLogin;
 import com.example.repositories.UserRepository;
@@ -20,10 +20,10 @@ public class UserController {
     public String root() { return "Ba-Bam!"; }
 
     @RequestMapping(value="/login", method=RequestMethod.POST)
-    public String login(@RequestBody UserLogin user) throws InvalidUserException {
+    public @ResponseBody String login(@RequestBody UserLogin user) throws InvalidCredentialsException {
         User realUser = userRepository.findByUsername(user.getUsername());
 
-        if (realUser == null) throw new InvalidUserException();
+        if (realUser == null) throw new InvalidCredentialsException();
 
         if (checkPassword(user.getPassword(), realUser.getEncryptedPassword())) {
             realUser.setToken();
@@ -31,12 +31,11 @@ public class UserController {
 
             return realUser.getToken();
         }
-
-        return "Invalid! " + user.getPassword() + " isnt equal to " + realUser.getEncryptedPassword() + ".";
+        else { throw new InvalidCredentialsException(); }
     }
 
     @RequestMapping("/logout")
-    public String logout(@RequestHeader(value="token") String token) {
+    public @ResponseBody String logout(@RequestHeader(value="token") String token) {
         User realUser = userRepository.findByToken(token);
 
         if (realUser != null) {

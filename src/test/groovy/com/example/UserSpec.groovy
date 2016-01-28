@@ -1,6 +1,6 @@
 package com.example
 import com.example.controllers.UserController
-import com.example.errors.InvalidUserException
+import com.example.errors.InvalidCredentialsException
 import com.example.models.User
 import com.example.models.UserLogin
 import com.example.repositories.UserRepository
@@ -11,6 +11,7 @@ class UserSpec extends Specification {
     private UserController userController = new UserController(userRepository: userRepository);
     private UserLogin userLogin = new UserLogin(username: "brandon", password: "password")
     private User user = new User(username: "brandon", password: "password")
+    private String logoutText = "You're logged out!"
 
     def "get root should return ba-bam string"() {
         when: String result = userController.root()
@@ -31,18 +32,19 @@ class UserSpec extends Specification {
         userController.login(userLogin)
 
         then:
-        thrown(InvalidUserException)
+        thrown(InvalidCredentialsException)
     }
 
     def "logging out should invalidate the token"() {
         when:
         userController.login(userLogin)
-        userController.logout(user.getToken())
+        String response = userController.logout(user.getToken())
 
         then:
         1 * userRepository.findByUsername(userLogin.username) >> user
         1 * userRepository.findByToken(_) >> user
         user.getToken() == null
+        response == logoutText
     }
 
     def "logging out with invalid token should carry on normally"() {
@@ -54,6 +56,6 @@ class UserSpec extends Specification {
 
         then:
         1 * userRepository.findByToken(fakeTokenValue) >> null
-        response == "You're logged out!"
+        response == logoutText
     }
 }

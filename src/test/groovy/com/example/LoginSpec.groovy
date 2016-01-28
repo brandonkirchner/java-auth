@@ -1,5 +1,6 @@
 package com.example
 import com.example.models.User
+import com.example.models.UserLogin
 import com.example.repositories.UserRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
@@ -12,7 +13,7 @@ class LoginSpec extends RestIntegrationBase {
     @Autowired
     UserRepository userRepository
 
-    def "remove all userse from database"() {
+    def "remove all users from database"() {
         given:
         userRepository.deleteAll()
 
@@ -24,17 +25,33 @@ class LoginSpec extends RestIntegrationBase {
     }
 
     def "valid user login"() {
-        given:
-        User user = new User()
-        user.setUsername("brandon")
-        user.setPassword("password")
+        setup:
+        User user = new User(username: "brandon", password: "password")
         userRepository.save(user)
-        RequestEntity<User> request = RequestEntity.post(serviceURI()).body(user)
+
+        UserLogin userLogin = new UserLogin(username: "brandon", password: "password")
+        RequestEntity<User> request = RequestEntity.post(serviceURI()).body(userLogin)
 
         when:
-        ResponseEntity<User> response = restTemplate.exchange(request, User)
+        ResponseEntity<String> response = restTemplate.exchange(request, String)
 
         then:
         response.statusCode == HttpStatus.OK
+        response.body == userRepository.findByUsername("brandon").getToken()
+
+        cleanup:
+        userRepository.delete(user)
+    }
+
+    def "invalid user login"() {
+        setup:
+        UserLogin userLogin = new UserLogin(username: "fakeuser", password: "password")
+        RequestEntity<User> request = RequestEntity.post(serviceURI()).body(userLogin)
+
+        when:
+        ResponseEntity<String> response = restTemplate.exchange(request, String)
+
+        then:
+        response.statusCode == HttpStatus.UNAUTHORIZED
     }
 }
