@@ -1,6 +1,6 @@
 package com.example;
 
-import com.example.controllers.AuthController;
+import com.example.controllers.UserController;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.http.MediaType;
@@ -17,7 +17,7 @@ public class AuthControllerTests {
 
     @Before
     public void setUp() throws Exception {
-        mvc = MockMvcBuilders.standaloneSetup(new AuthController()).build();
+        mvc = MockMvcBuilders.standaloneSetup(new UserController()).build();
     }
 
     @Test
