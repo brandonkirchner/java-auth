@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="12340874-199d-45f1-b1ef-444eaf3f163e" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="12340874-199d-45f1-b1ef-444eaf3f163e" name="Default" comment="" />
     <list id="1fc51b22-31fa-4c82-afc1-ac306bdb308a" name="New changelist" comment="" />
     <ignored path="java-auth.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -861,7 +859,7 @@
       <workItem from="1453923206620" duration="28159000" />
       <workItem from="1454426966334" duration="22000" />
       <workItem from="1454594732500" duration="116000" />
-      <workItem from="1454611614974" duration="1203000" />
+      <workItem from="1454611614974" duration="1265000" />
     </task>
     <task id="LOCAL-00001" summary="adding procfile for heroku">
       <created>1453224546206</created>
@@ -1001,7 +999,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="78383000" />
+    <option name="totallyTimeSpent" value="78445000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1680" y="23" width="1920" height="1099" extended-state="0" />
