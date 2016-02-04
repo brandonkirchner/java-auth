@@ -1,0 +1,6 @@
+/Users/brandon.kirchner/gitprojects/java-auth/src/main/java/com/example/errors/InvalidCredentialsException.java
+/Users/brandon.kirchner/gitprojects/java-auth/src/main/java/com/example/models/User.java
+/Users/brandon.kirchner/gitprojects/java-auth/src/main/java/com/example/Application.java
+/Users/brandon.kirchner/gitprojects/java-auth/src/main/java/com/example/repositories/UserRepository.java
+/Users/brandon.kirchner/gitprojects/java-auth/src/main/java/com/example/models/UserLogin.java
+/Users/brandon.kirchner/gitprojects/java-auth/src/main/java/com/example/controllers/UserController.java
