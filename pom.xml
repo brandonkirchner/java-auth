@@ -22,11 +22,13 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
         <hibernate.version>4.2.0.Final</hibernate.version>
+		<flyway.SQL.directory>./src/main/resources/db/migration</flyway.SQL.directory>
 	</properties>
 
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
+
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
@@ -69,11 +71,11 @@
             <version>${hibernate.version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <version>9.4-1200-jdbc41</version>
-        </dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.9</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.mindrot</groupId>
@@ -94,6 +96,18 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.flywaydb</groupId>
+				<artifactId>flyway-maven-plugin</artifactId>
+				<version>3.2.1</version>
+				<configuration>
+					<user>root</user>
+					<password>""</password>
+					<url>jdbc:mysql://localhost:5432/java-auth</url>
+					<outOfOrder>true</outOfOrder>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
